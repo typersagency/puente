@@ -1,0 +1,16 @@
+# Lo de cada equipo: PIN, llave del atajo, carpeta compartida, certificados
+# Per-computer settings: PIN, shortcut key, shared folder, certificates
+config.local.json
+*.pem
+*.key
+*.crt
+
+# Registro, sesiones, miniaturas / Log, sessions, thumbnails
+datos/
+
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store
+Thumbs.db

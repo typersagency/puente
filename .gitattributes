@@ -1,0 +1,6 @@
+# Finales de línea: LF en todo, CRLF en los scripts de Windows / Line endings: LF, CRLF for Windows scripts
+* text=auto eol=lf
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.png binary
+*.ico binary

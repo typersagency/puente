@@ -1,0 +1,23 @@
+{
+  "name": "Puente by Typers",
+  "short_name": "Puente",
+  "description": "Phone → computer over your home Wi-Fi, straight into your project folders. / Del celular al computador por el Wi-Fi de la casa.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0E1116",
+  "theme_color": "#2563EB",
+  "icons": [
+    {
+      "src": "/icono-180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/icono-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

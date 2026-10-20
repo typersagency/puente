@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Puente</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Puente">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#F4F5F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1116" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icono-180.png">
+<link rel="icon" type="image/png" href="/icono-180.png">
+<link rel="stylesheet" href="/estilos.css">
+</head>
+<body>
+<!-- Los textos con data-t se traducen en app.js (español / inglés, según el idioma del celular). -->
+
+<!-- Entrar con el PIN -->
+<main id="vEntrar" class="vista" hidden>
+  <div class="logo" aria-hidden="true"><img src="/icono-180.png" alt=""></div>
+  <h1>Puente</h1>
+  <p class="sub" data-t="lema">Del celular a tu computador por el Wi-Fi de la casa. Sin cables ni nube.</p>
+  <form id="fPin" class="tarjeta" autocomplete="off">
+    <label for="pin">PIN</label>
+    <input id="pin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="12" autocomplete="one-time-code" required>
+    <button class="boton" type="submit" data-t="entrar">Entrar</button>
+    <p class="msg" id="pinMsg" role="status"></p>
+  </form>
+  <p class="nota" data-t="pinDonde">El PIN aparece en la pantalla del computador.</p>
+</main>
+
+<!-- Subir -->
+<main id="vSubir" class="vista" hidden>
+  <header class="cabeza">
+    <img src="/icono-180.png" alt="" class="mini-logo">
+    <div><h1>Puente</h1><p class="sub" id="conexion" data-t="conectado">Conectado al computador</p></div>
+  </header>
+
+  <!-- Solo en el navegador (no cuando ya se abre desde el ícono) -->
+  <div class="tip" id="tipInicio" hidden>
+    <p><span data-t="tip1">Tenlo como app: toca</span> <b data-t="compartir">Compartir</b>
+      <svg class="ico-compartir" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2v11M6 6l4-4 4 4M5 9H4v9h12V9h-1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      → <b data-t="agregarInicio">Agregar a pantalla de inicio</b>.</p>
+    <button class="enlace" id="tipCerrar" type="button" data-t="listo">Listo</button>
+  </div>
+
+  <div class="acciones">
+    <label class="accion" for="galeria">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="2" fill="currentColor"/><path d="M4 18l5-5 4 4 3-3 4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      <span data-t="galeria">Galería</span>
+    </label>
+    <label class="accion" for="camara">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      <span data-t="camara">Cámara</span>
+    </label>
+  </div>
+  <input id="galeria" type="file" accept="image/*,video/*" multiple hidden>
+  <input id="camara" type="file" accept="image/*,video/*" capture="environment" hidden>
+
+  <!-- Las últimas carpetas usadas: un toque y cambia el destino -->
+  <div class="rapidas" id="rapidas" hidden></div>
+
+  <button class="destino" id="destinoBtn" type="button" aria-expanded="false" aria-controls="destinoCaja">
+    <span class="va" data-t="vanA">Van a</span> <b id="destinoTxt">…</b> <span class="cambiar" data-t="cambiar">Cambiar</span>
+  </button>
+  <section class="tarjeta explorador" id="destinoCaja" hidden data-t-aria="elegirCarpeta" aria-label="Elegir carpeta">
+    <nav class="migas" id="migas" data-t-aria="dondeEstas" aria-label="Dónde estás"></nav>
+    <ul class="carpetas" id="carpetas"></ul>
+    <p class="nota" id="carpetasVacio" hidden data-t="sinCarpetas">No hay más carpetas aquí.</p>
+    <form class="nueva" id="fNueva" hidden autocomplete="off">
+      <input id="nuevaNombre" type="text" maxlength="60" data-t-ph="nombreNueva" placeholder="Nombre de la carpeta nueva" data-t-aria="nombreNueva" aria-label="Nombre de la carpeta nueva" enterkeyhint="done">
+      <button class="boton" type="submit" data-t="crear">Crear</button>
+    </form>
+    <p class="msg" id="explMsg" role="status"></p>
+    <div class="botonera">
+      <button class="boton secundario" id="nuevaBtn" type="button" data-t="nuevaCarpeta">+ Nueva carpeta</button>
+      <button class="boton" id="guardarAqui" type="button" data-t="guardarAqui">Guardar aquí</button>
+    </div>
+    <p class="nota" data-t="notaNombres">Se guardan con la hora en que se tomó cada foto, sin ubicación GPS. Lo que mandes con el atajo del iPhone también llega aquí.</p>
+  </section>
+
+  <div class="progreso" id="progreso" hidden>
+    <div class="barra"><i id="progresoBarra"></i></div>
+    <p class="nota" id="resumen" role="status"></p>
+  </div>
+
+  <ul class="cola" id="cola" aria-live="polite"></ul>
+
+  <section>
+    <h2 id="ultimoTit" data-t="loUltimo">Lo último</h2>
+    <ul class="rejilla" id="recientes"></ul>
+    <p class="nota" id="recientesVacio" hidden data-t="nadaAun">Todavía no hay nada enviado a esta carpeta.</p>
+  </section>
+
+  <p class="nota centro"><button class="enlace" id="salir" type="button" data-t="salir">Salir en este celular</button></p>
+  <p class="pie">Puente by Typers · <a href="https://typersagency.com" rel="noopener" target="_blank">typersagency.com</a></p>
+</main>
+
+<script src="/app.js"></script>
+</body>
+</html>

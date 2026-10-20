@@ -1,0 +1,23 @@
+{
+  "_nota": "Configuración general / General settings. Lo de cada equipo (PIN, carpeta compartida, puerto, HTTPS) va en config.local.json, que no va a git y gana sobre este archivo. / Per-computer settings go in config.local.json (not in git).",
+  "puerto": 8850,
+  "escuchar": "0.0.0.0",
+  "limite_imagen_mb": 80,
+  "limite_video_mb": 4096,
+  "espacio_minimo_mb": 1024,
+  "sesion_dias": 30,
+  "convertir_heic": true,
+  "quitar_ubicacion": true,
+  "carpetas": {
+    "_nota": "raiz: la carpeta que se comparte (vacío = tu carpeta Imágenes). ocultar: nombres de carpetas que no se muestran. inicial: la primera carpeta de destino (relativa a raiz). / raiz: shared folder (empty = your Pictures folder).",
+    "raiz": "",
+    "ocultar": [],
+    "inicial": ""
+  },
+  "https": {
+    "_nota": "Opcional / optional: cert y key (rutas a un certificado de confianza, p. ej. de mkcert) y nombre (el nombre o IP del certificado). Ver SECURITY.md.",
+    "cert": "",
+    "key": "",
+    "nombre": ""
+  }
+}
