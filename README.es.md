@@ -1,4 +1,4 @@
-# Puente by Typers
+<p align="center"><img src="docs/marca/encabezado.png" alt="Puente by Typers" width="100%"></p>
 
 **Manda fotos y videos del celular directo a la carpeta correcta de tu computador, por el Wi‑Fi de la casa. Sin cables ni nube.**
 

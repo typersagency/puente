@@ -1,4 +1,4 @@
-# Puente by Typers
+<p align="center"><img src="docs/marca/encabezado.png" alt="Puente by Typers" width="100%"></p>
 
 **Send photos and videos from your phone straight into the right folder on your computer — over your home Wi‑Fi, no cables, no cloud.**
 

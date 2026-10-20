@@ -22,6 +22,7 @@ Thanks for helping! Puente is small on purpose. We prefer simple, safe and well-
 - **Security rules are not relaxed:** local network only, the PIN and its lockout, `X-Puente` on every `POST`, file type by contents, nothing written outside the shared folder, and never re-compressing images when erasing GPS. See [SECURITY.md](SECURITY.md).
 - **No cloud, no telemetry, no external CDNs** on the phone page.
 - **Two languages.** Every visible text goes in Spanish and English: `TX` in `web/app.js`, `TEXTOS` and `PC_TEXTOS` in `puente.py`, and `T 'es' 'en'` in the PowerShell scripts.
+- **Brand.** The icon and the README header come from `docs/marca/puente-icono.svg` and `docs/marca/encabezado.html`; export them with `python herramientas/iconos.py` (needs Chrome or Edge).
 - **Code style.** Follow the surrounding code. It is written in Spanish (names and comments), and we keep it that way for consistency. You may write your PR description in English.
 
 Good first contributions: a tray icon for macOS or Linux, more languages, resumable uploads for very large videos, and sending files from the computer to the phone.

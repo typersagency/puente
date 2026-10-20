@@ -1,43 +1,53 @@
-# Dibuja el ícono de Puente by Typers (un puente sobre una foto) y lo guarda en:
-#   web/icono-180.png (iPhone), web/icono-512.png (manifest) y herramientas/puente.ico (acceso directo de Windows)
-# Uso: python -I herramientas/iconos.py
+# Exporta la marca de Puente by Typers desde sus archivos maestros (docs/marca/):
+#   puente-icono.svg  -> web/icono-180.png (iPhone), web/icono-512.png (manifest), herramientas/puente.ico (Windows)
+#                        y docs/marca/puente-icono-1024.png
+#   encabezado.html   -> docs/marca/encabezado.png (README, 1280 × 360) y docs/marca/compartir.png (GitHub, 1280 × 640)
+# Usa Chrome o Edge sin ventana para dibujar el SVG y el HTML tal cual (con la letra Michroma), y Pillow para reducir.
+# Uso: python herramientas/iconos.py
 import os
-from PIL import Image, ImageDraw
+import shutil
+import subprocess
+import sys
+import tempfile
+
+from PIL import Image
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.dirname(AQUI)
-N = 1024  # se dibuja grande y se reduce para que quede suave
+MARCA = os.path.join(RAIZ, "docs", "marca")
 
 
-def dibujar():
-    im = Image.new("RGBA", (N, N), (0, 0, 0, 0))
-    d = ImageDraw.Draw(im)
-    # Fondo: degradado azul, esquinas redondas
-    fondo = Image.new("RGBA", (N, N))
-    fd = ImageDraw.Draw(fondo)
-    for y in range(N):
-        t = y / N
-        fd.line([(0, y), (N, y)], fill=(int(37 + 22 * t), int(99 - 40 * t), int(235 - 60 * t), 255))
-    mascara = Image.new("L", (N, N), 0)
-    ImageDraw.Draw(mascara).rounded_rectangle([0, 0, N - 1, N - 1], radius=230, fill=255)
-    im.paste(fondo, (0, 0), mascara)
-    blanco = (255, 255, 255, 255)
-    # Foto (marco con montaña y sol)
-    x0, y0, x1, y1 = 250, 190, 774, 560
-    d.rounded_rectangle([x0, y0, x1, y1], radius=48, outline=blanco, width=44)
-    d.polygon([(x0 + 60, y1 - 50), (430, 330), (560, 470), (630, 400), (x1 - 60, y1 - 50)], fill=blanco)
-    d.ellipse([620, 250, 700, 330], fill=blanco)
-    # Puente: arco y tablero
-    d.arc([140, 600, 884, 1060], start=200, end=340, fill=blanco, width=48)
-    d.rounded_rectangle([130, 700, 894, 748], radius=24, fill=blanco)
-    for x in (300, 420, 604, 724):
-        d.line([(x, 700), (x, 650 if x in (420, 604) else 680)], fill=blanco, width=30)
-    return im
+def navegador():
+    for nombre in ("chrome", "msedge", "google-chrome", "chromium", "chromium-browser"):
+        ruta = shutil.which(nombre)
+        if ruta:
+            return ruta
+    for ruta in (r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+                 r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
+                 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"):
+        if os.path.exists(ruta):
+            return ruta
+    sys.exit("Hace falta Chrome o Edge para exportar. / Chrome or Edge is needed.")
 
 
-im = dibujar()
-web = os.path.join(RAIZ, "web")
-for lado in (180, 512):
-    im.resize((lado, lado), Image.LANCZOS).save(os.path.join(web, f"icono-{lado}.png"), optimize=True)
-im.resize((256, 256), Image.LANCZOS).save(os.path.join(AQUI, "puente.ico"), sizes=[(16, 16), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)])
-print("OK íconos en web/ y herramientas/puente.ico")
+def foto(archivo, ancho, alto, salida, extra=""):
+    """Captura de un archivo local tal como lo dibuja el navegador (fondo transparente)."""
+    url = "file:///" + os.path.join(MARCA, archivo).replace(os.sep, "/") + extra
+    with tempfile.TemporaryDirectory() as perfil:
+        subprocess.run([navegador(), "--headless=new", "--disable-gpu", "--hide-scrollbars", f"--user-data-dir={perfil}",
+                        "--default-background-color=00000000", f"--window-size={ancho},{alto}", "--virtual-time-budget=5000",
+                        f"--screenshot={salida}", url], check=True, capture_output=True, timeout=120)
+    return salida
+
+
+with tempfile.TemporaryDirectory() as tmp:
+    grande = Image.open(foto("puente-icono.svg", 1024, 1024, os.path.join(tmp, "icono.png"))).convert("RGBA")
+    grande.save(os.path.join(MARCA, "puente-icono-1024.png"), optimize=True)
+    for lado in (180, 512):
+        grande.resize((lado, lado), Image.LANCZOS).save(os.path.join(RAIZ, "web", f"icono-{lado}.png"), optimize=True)
+    grande.resize((256, 256), Image.LANCZOS).save(os.path.join(AQUI, "puente.ico"),
+                                                  sizes=[(16, 16), (24, 24), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)])
+    for nombre, alto, extra in (("encabezado.png", 360, ""), ("compartir.png", 640, "?compartir")):
+        Image.open(foto("encabezado.html", 1280, alto, os.path.join(tmp, nombre), extra)).convert("RGB").save(
+            os.path.join(MARCA, nombre), optimize=True)
+print("OK: web/icono-*.png, herramientas/puente.ico y docs/marca/*.png")

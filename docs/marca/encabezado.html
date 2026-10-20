@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Puente by Typers · encabezado</title>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<!-- Fuente del encabezado del README (1280 × 360) y de la imagen para compartir (?compartir, 1280 × 640).
+     Se exporta con herramientas/iconos.py. -->
+<style>
+  html, body { margin:0; }
+  body { width:1280px; height:360px; overflow:hidden; background:#05070D; color:#EEF1F7; font-family:Barlow, sans-serif;
+         background:radial-gradient(900px 500px at 88% -10%, #16213A 0%, #05070D 70%); position:relative; }
+  .fila { position:absolute; inset:0; display:flex; align-items:center; gap:48px; padding:0 96px; }
+  .fila img { width:200px; height:200px; flex:none; }
+  h1 { font:400 76px/1 Michroma, sans-serif; letter-spacing:.06em; margin:0; }
+  .by { font:500 26px/1 Barlow, sans-serif; letter-spacing:.08em; color:#8D96AB; margin-top:18px; }
+  .by b { color:#EEF1F7; font-weight:500; }
+  .lema { font:400 25px/1.35 Barlow, sans-serif; color:#C9D0DE; margin-top:26px; max-width:700px; }
+  .lema span { display:block; color:#8D96AB; font-size:21px; margin-top:6px; }
+  .punto { color:#FF8A3D; }
+  .orbita { position:absolute; right:-160px; top:-260px; width:760px; height:760px; border-radius:50%; border:2px solid rgba(122,174,255,.10); }
+  .orbita.dos { right:-60px; top:-160px; width:560px; height:560px; border-color:rgba(122,174,255,.07); }
+  .pie { position:absolute; left:96px; bottom:36px; font:500 17px/1 Barlow, sans-serif; letter-spacing:.14em; color:#8D96AB; text-transform:uppercase; }
+  body.compartir { height:640px; }
+  body.compartir .fila { flex-direction:column; align-items:flex-start; justify-content:center; gap:28px; padding-bottom:40px; }
+  body.compartir .fila img { width:160px; height:160px; }
+  body.compartir h1 { font-size:88px; }
+  .celular { position:absolute; right:84px; top:96px; width:320px; border-radius:30px; border:8px solid #1C2740; box-shadow:0 30px 80px rgba(0,0,0,.6); }
+  body:not(.compartir) .lema, body:not(.compartir) .pie, body:not(.compartir) .celular { display:none; }
+</style>
+</head>
+<body>
+  <div class="orbita"></div><div class="orbita dos"></div>
+  <div class="fila">
+    <img src="puente-icono.svg" alt="">
+    <div>
+      <h1>PUENTE</h1>
+      <div class="by">by <b>Typers</b><span class="punto"> ●</span></div>
+      <div class="lema">Phone → the right folder on your computer.<br>Over your home Wi‑Fi. No cables, no cloud.
+        <span>Del celular a la carpeta correcta de tu computador, por el Wi‑Fi de la casa.</span></div>
+    </div>
+  </div>
+  <img class="celular" src="../captura-celular.png" alt="">
+  <div class="pie">Open source · MIT · typersagency.com</div>
+  <script>if (location.search.includes('compartir')) document.body.classList.add('compartir');</script>
+</body>
+</html>

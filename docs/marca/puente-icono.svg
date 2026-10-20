@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- Puente by Typers · ícono (ruta C, «P en órbita»). Misma base y trazo que el ícono de Typers:
+       la P nace en la Tierra y su curva es el puente que llega al punto Plasma (la nave con el motor encendido). -->
+  <defs>
+    <radialGradient id="fondo" cx="80%" cy="0%" r="95%"><stop offset="0" stop-color="#16213A"/><stop offset="1" stop-color="#05070D"/></radialGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FF8A3D" stop-opacity=".6"/><stop offset="1" stop-color="#FF8A3D" stop-opacity="0"/></radialGradient>
+    <radialGradient id="tierra" cx="70%" cy="12%" r="85%"><stop offset="0" stop-color="#9CC3FF"/><stop offset=".45" stop-color="#4F7FD0"/><stop offset="1" stop-color="#14264A"/></radialGradient>
+    <clipPath id="marco"><rect width="1024" height="1024" rx="220"/></clipPath>
+  </defs>
+  <rect width="1024" height="1024" rx="220" fill="url(#fondo)"/>
+  <g clip-path="url(#marco)">
+    <circle cx="250" cy="1110" r="500" fill="none" stroke="#7AAEFF" stroke-opacity=".22" stroke-width="26"/>
+    <circle cx="250" cy="1110" r="480" fill="url(#tierra)"/>
+  </g>
+  <circle cx="742" cy="402" r="140" fill="url(#halo)"/>
+  <rect x="330" y="236" width="92" height="452" rx="10" fill="#EEF1F7"/>
+  <path d="M376 282 L560 282 C676 282 742 340 742 402" stroke="#EEF1F7" stroke-width="92" fill="none"/>
+  <path d="M742 402 C742 470 676 524 560 524 L376 524" stroke="#EEF1F7" stroke-width="92" fill="none" stroke-dasharray="0 150 9999"/>
+  <circle cx="742" cy="402" r="50" fill="#FF8A3D"/>
+</svg>
